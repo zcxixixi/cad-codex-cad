@@ -49,7 +49,26 @@
 
 \begin{document}
 
-\includepdf[pages=-,pagecommand={\thispagestyle{empty}}]{课程设计封面及评分表.pdf}
+\includepdf[
+  pages=1,
+  pagecommand={
+    \thispagestyle{empty}
+    \begin{tikzpicture}[remember picture,overlay]
+      \fill[white] (current page.south west)
+        rectangle ([yshift=3.4cm]current page.south east);
+    \end{tikzpicture}
+  }
+]{课程设计封面及评分表.pdf}
+\includepdf[
+  pages=2,
+  pagecommand={
+    \thispagestyle{empty}
+    \begin{tikzpicture}[remember picture,overlay]
+      \fill[white] (current page.south west)
+        rectangle ([yshift=3.4cm]current page.south east);
+    \end{tikzpicture}
+  }
+]{课程设计封面及评分表.pdf}
 
 \chapter*{摘\quad 要}
 \addcontentsline{toc}{chapter}{摘要}
