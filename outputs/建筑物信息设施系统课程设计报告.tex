@@ -49,64 +49,8 @@
 
 \begin{document}
 
-\begin{titlepage}
-  \centering
-  \vspace*{1.2cm}
-  {\heiti\zihao{2} 青岛理工大学信控学院\par}
-  \vspace{2.0cm}
-  {\heiti\zihao{1}《建筑物信息设施系统》\par}
-  \vspace{0.5cm}
-  {\heiti\zihao{1}课程设计报告\par}
-  \vspace{2.2cm}
-  {\heiti\zihao{3}题目：某中学教学楼信息设施系统设计\par}
-  \vfill
-  \renewcommand{\arraystretch}{1.7}
-  \begin{tabular}{>{\heiti}r l}
-    专\qquad 业：& 建筑电气与智能化\\
-    班\qquad 级：& \blank\\
-    组\qquad 别：& \blank\\
-    姓\qquad 名：& \blank\\
-    学\qquad 号：& \blank\\
-    指导教师：& \blank\\
-  \end{tabular}
-  \vfill
-  {\zihao{4}2026年6月\par}
-\end{titlepage}
+\includepdf[pages=-,pagecommand={\thispagestyle{empty}}]{课程设计封面及评分表.pdf}
 
-\clearpage
-\chapter*{课程设计评价指标与分值}
-\addcontentsline{toc}{chapter}{课程设计评价指标与分值}
-\small
-\begin{longtable}{p{2.2cm}p{7.2cm}p{1.8cm}p{0.7cm}p{0.7cm}}
-\toprule
-\textbf{评价内容}&\textbf{评价指标}&\textbf{课程目标}&\textbf{分值}&\textbf{实评}\\
-\midrule
-\endfirsthead
-\toprule
-\textbf{评价内容}&\textbf{评价指标}&\textbf{课程目标}&\textbf{分值}&\textbf{实评}\\
-\midrule
-\endhead
-方案合理性&方案符合工程实际，涉及多方面技术与知识。&目标1&5&\\
-方案合理性&问题具有综合性，需要协调多个相互关联的子问题。&目标3&5&\\
-独立工作能力&完成系统方案、平面图、系统图、设备选型及计算。&目标2&15&\\
-独立工作能力&能发现、分析并解决工程设计中的实际问题。&目标2&15&\\
-独立工作能力&工作量饱满，系统功能完善并具有实用性。&目标2&10&\\
-报告质量&报告系统、逻辑清晰、内容详实且格式规范。&目标1&20&\\
-报告质量&方案论证充分、设备选型合理并具有先进性。&目标3&10&\\
-答辩表现&思路清晰，概念准确，回答有理有据。&目标3&5&\\
-答辩表现&图纸符合规范，对图纸阐述准确合理。&目标2&5&\\
-特色与综合素质&按时完成任务，工作认真严谨。&目标1&5&\\
-特色与综合素质&方案或设备选型具有先进性或创新性。&目标3&5&\\
-\bottomrule
-\end{longtable}
-\normalsize
-
-\noindent 实评总分：\blank\hfill 成绩等级：\blank
-
-\vspace{1cm}
-\noindent 评阅教师（签名）：\blank\hfill 年\quad 月\quad 日
-
-\clearpage
 \chapter*{摘\quad 要}
 \addcontentsline{toc}{chapter}{摘要}
 本设计以某中学1号教学楼、2号教学楼和行政综合楼为对象，完成信息网络、综合布线、有线电视和公共广播系统设计。信息网络采用核心层与接入层两层架构，设置双核心交换机，楼层接入采用千兆PoE+交换机和万兆单模光纤上联。综合布线数据主干采用12芯OS2单模光缆，水平配线采用Cat6A非屏蔽对绞电缆，语音主干采用3类25对大对数电缆。依据建筑功能和房间用途，共配置460个数据点，其中普通数据点288个、无线AP点172个；配置语音点38个，信息点总计498个。水平电缆按各配线区域逐层计算为23.377 km，按305 m/箱并逐层向上取整配置93箱。
