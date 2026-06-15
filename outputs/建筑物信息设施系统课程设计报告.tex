@@ -154,22 +154,23 @@
   node distance=9mm and 12mm,
   box/.style={draw,rounded corners,align=center,minimum width=29mm,minimum height=10mm,fill=blue!7},
   core/.style={box,fill=green!12,minimum width=42mm},
-  arr/.style={-{Latex[length=2mm]},thick}
+  arr/.style={-{Latex[length=2mm]},thick},
+  linklabel/.style={fill=white,inner sep=1.5pt,font=\small}
 ]
 \node[box,fill=orange!15] (net) {Internet\\教育网};
-\node[box,right=of net,fill=red!10] (fw) {出口路由器\\下一代防火墙};
-\node[core,right=of fw] (core) {双核心交换机\\2$\times$10 Gbit/s互联};
+\node[box,right=18mm of net,fill=red!10] (fw) {出口路由器\\下一代防火墙};
+\node[core,right=24mm of fw] (core) {双核心交换机\\2$\times$10 Gbit/s互联};
 \node[box,below left=18mm and 34mm of core] (b1) {1号教学楼\\15个FD};
 \node[box,below=18mm of core] (b2) {2号教学楼\\10个FD};
 \node[box,below right=18mm and 34mm of core] (b3) {行政综合楼\\4个FD};
 \node[box,below=of b1] (a1) {PoE+接入交换机\\TD/TP/AP};
 \node[box,below=of b2] (a2) {PoE+接入交换机\\TD/TP/AP};
 \node[box,below=of b3] (a3) {PoE+接入交换机\\TD/TP/AP};
-\draw[arr] (net)--node[above]{双链路}(fw);
-\draw[arr] (fw)--node[above]{10 Gbit/s}(core);
-\draw[arr] (core)--node[sloped,above]{OS2}(b1);
-\draw[arr] (core)--node[right]{OS2}(b2);
-\draw[arr] (core)--node[sloped,above]{OS2}(b3);
+\draw[arr] (net)--node[linklabel,above=1mm]{双链路}(fw);
+\draw[arr] (fw)--node[linklabel,above=1mm]{10 Gbit/s}(core);
+\draw[arr] (core)--node[linklabel,sloped,above]{OS2}(b1);
+\draw[arr] (core)--node[linklabel,right]{OS2}(b2);
+\draw[arr] (core)--node[linklabel,sloped,above]{OS2}(b3);
 \draw[arr] (b1)--(a1);
 \draw[arr] (b2)--(a2);
 \draw[arr] (b3)--(a3);
