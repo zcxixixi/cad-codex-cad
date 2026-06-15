@@ -1,0 +1,493 @@
+\documentclass[UTF8,zihao=-4,openany]{ctexrep}
+\usepackage[a4paper,top=2.5cm,bottom=2.3cm,left=2.8cm,right=2.2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,longtable,tabularx,array,multirow}
+\usepackage{graphicx,float}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc}
+\usepackage{fancyhdr,lastpage}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage{pdfpages}
+
+\setCJKmainfont{Songti SC}
+\setCJKsansfont{Heiti SC}
+\setCJKmonofont{Kaiti SC}
+\setmainfont{Times New Roman}
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue}
+\setstretch{1.35}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\setlist{nosep,leftmargin=2em}
+\captionsetup{font=small,labelsep=quad}
+\renewcommand{\arraystretch}{1.25}
+
+\pagestyle{fancy}
+\setlength{\headheight}{15pt}
+\fancyhf{}
+\fancyhead[C]{建筑物信息设施系统课程设计}
+\fancyfoot[C]{第 \thepage 页\quad 共 \pageref{LastPage} 页}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\ctexset{
+  chapter={
+    format=\centering\heiti\zihao{3},
+    name={第,章},
+    number=\chinese{chapter},
+    beforeskip=0pt,
+    afterskip=18pt
+  },
+  section={format=\heiti\zihao{4}},
+  subsection={format=\heiti\zihao{-4}}
+}
+
+\newcommand{\blank}{\underline{\hspace{5cm}}}
+\newcommand{\unit}[1]{\,\mathrm{#1}}
+
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  \vspace*{1.2cm}
+  {\heiti\zihao{2} 青岛理工大学信控学院\par}
+  \vspace{2.0cm}
+  {\heiti\zihao{1}《建筑物信息设施系统》\par}
+  \vspace{0.5cm}
+  {\heiti\zihao{1}课程设计报告\par}
+  \vspace{2.2cm}
+  {\heiti\zihao{3}题目：某中学教学楼信息设施系统设计\par}
+  \vfill
+  \renewcommand{\arraystretch}{1.7}
+  \begin{tabular}{>{\heiti}r l}
+    专\qquad 业：& 建筑电气与智能化\\
+    班\qquad 级：& \blank\\
+    组\qquad 别：& \blank\\
+    姓\qquad 名：& \blank\\
+    学\qquad 号：& \blank\\
+    指导教师：& \blank\\
+  \end{tabular}
+  \vfill
+  {\zihao{4}2026年6月\par}
+\end{titlepage}
+
+\clearpage
+\chapter*{课程设计评价指标与分值}
+\addcontentsline{toc}{chapter}{课程设计评价指标与分值}
+\small
+\begin{longtable}{p{2.2cm}p{7.2cm}p{1.8cm}p{0.7cm}p{0.7cm}}
+\toprule
+\textbf{评价内容}&\textbf{评价指标}&\textbf{课程目标}&\textbf{分值}&\textbf{实评}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{评价内容}&\textbf{评价指标}&\textbf{课程目标}&\textbf{分值}&\textbf{实评}\\
+\midrule
+\endhead
+方案合理性&方案符合工程实际，涉及多方面技术与知识。&目标1&5&\\
+方案合理性&问题具有综合性，需要协调多个相互关联的子问题。&目标3&5&\\
+独立工作能力&完成系统方案、平面图、系统图、设备选型及计算。&目标2&15&\\
+独立工作能力&能发现、分析并解决工程设计中的实际问题。&目标2&15&\\
+独立工作能力&工作量饱满，系统功能完善并具有实用性。&目标2&10&\\
+报告质量&报告系统、逻辑清晰、内容详实且格式规范。&目标1&20&\\
+报告质量&方案论证充分、设备选型合理并具有先进性。&目标3&10&\\
+答辩表现&思路清晰，概念准确，回答有理有据。&目标3&5&\\
+答辩表现&图纸符合规范，对图纸阐述准确合理。&目标2&5&\\
+特色与综合素质&按时完成任务，工作认真严谨。&目标1&5&\\
+特色与综合素质&方案或设备选型具有先进性或创新性。&目标3&5&\\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\noindent 实评总分：\blank\hfill 成绩等级：\blank
+
+\vspace{1cm}
+\noindent 评阅教师（签名）：\blank\hfill 年\quad 月\quad 日
+
+\clearpage
+\chapter*{摘\quad 要}
+\addcontentsline{toc}{chapter}{摘要}
+本设计以某中学1号教学楼、2号教学楼和行政综合楼为对象，完成信息网络、综合布线、有线电视和公共广播系统设计。信息网络采用核心层与接入层两层架构，设置双核心交换机，楼层接入采用千兆PoE+交换机和万兆单模光纤上联。综合布线数据主干采用12芯OS2单模光缆，水平配线采用Cat6A非屏蔽对绞电缆，语音主干采用3类25对大对数电缆。依据建筑功能和房间用途，共配置460个数据点，其中普通数据点288个、无线AP点172个；配置语音点38个，信息点总计498个。水平电缆按各配线区域逐层计算为23.377 km，按305 m/箱并逐层向上取整配置93箱。
+
+有线电视采用862 MHz双向HFC结构，共设置142个电视终端；公共广播采用IP网络数字广播和100 V定压输出方式，共设置38只6 W壁挂音箱、348只3 W吸顶扬声器，扬声器负荷1272 W。设计完成了各系统拓扑、设备选型、容量计算、材料汇总，并整理三栋建筑的系统图和平面图及独立四系统系统图。
+
+\noindent\textbf{关键词：}信息网络；综合布线；有线电视；公共广播；Cat6A；OS2
+
+\clearpage
+\tableofcontents
+
+\chapter{概述}
+\section{工程概况}
+本项目为商河县第二实验中学，总用地面积88408.73 m$^2$，主要包括1号教学楼、2号教学楼、食堂、风雨操场、报告厅、行政综合楼和学生宿舍等。本次课程设计选取1号教学楼、2号教学楼和行政综合楼。
+
+1号教学楼建筑面积14382.03 m$^2$，地上5层，建筑高度22.90 m；2号教学楼建筑面积10060.13 m$^2$，地上5层，建筑高度21.40 m；行政综合楼建筑面积4995.38 m$^2$，地上4层，建筑高度21.00 m。
+
+\section{设计依据}
+\begin{enumerate}
+  \item 《智能建筑设计标准》GB 50314--2015；
+  \item 《综合布线系统工程设计规范》GB 50311--2016；
+  \item 《综合布线系统工程验收规范》GB/T 50312--2016；
+  \item 《有线电视网络工程设计标准》GB/T 50200--2018；
+  \item 《公共广播系统工程技术标准》GB/T 50526--2021；
+  \item 《数据中心设计规范》GB 50174--2017；
+  \item 《建筑物电子信息系统防雷技术规范》GB 50343--2012；
+  \item 《20X101-3 综合布线系统工程设计与施工》；
+  \item 课程设计任务书及三栋建筑电气DWG底图。
+\end{enumerate}
+
+\section{设计内容及安排}
+设计内容包括信息网络系统、综合布线系统、有线电视系统和公共广播系统。主要完成用户需求分析、系统拓扑、工作区点位布置、主干及水平缆线计算、交换机与配线架选型、电视分配网络设计、广播分区及功率计算、设备材料统计和CAD图纸整理。
+
+\chapter{信息网络系统设计}
+\section{系统设计方案}
+校园信息网络采用核心层和接入层两层架构。行政综合楼网络机房设置2台三层核心交换机，通过双10 Gbit/s链路互联，并经路由器、防火墙接入Internet和教育网。各楼层电信间配置24口千兆PoE+接入交换机，采用10 Gbit/s OS2单模光链路上联核心层，实现万兆主干、千兆到桌面。
+
+网络逻辑上划分教学、办公、无线、访客、设备管理等VLAN；核心层实施三层网关、访问控制、链路聚合和生成树保护。无线系统采用802.11ax AP，支持统一认证、射频管理和漫游。核心、出口和关键链路采用冗余配置。
+
+\section{信息网络系统图}
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[
+  node distance=9mm and 12mm,
+  box/.style={draw,rounded corners,align=center,minimum width=29mm,minimum height=10mm,fill=blue!7},
+  core/.style={box,fill=green!12,minimum width=42mm},
+  arr/.style={-{Latex[length=2mm]},thick}
+]
+\node[box,fill=orange!15] (net) {Internet\\教育网};
+\node[box,right=of net,fill=red!10] (fw) {出口路由器\\下一代防火墙};
+\node[core,right=of fw] (core) {双核心交换机\\2$\times$10 Gbit/s互联};
+\node[box,below left=18mm and 34mm of core] (b1) {1号教学楼\\15个FD};
+\node[box,below=18mm of core] (b2) {2号教学楼\\10个FD};
+\node[box,below right=18mm and 34mm of core] (b3) {行政综合楼\\4个FD};
+\node[box,below=of b1] (a1) {PoE+接入交换机\\TD/TP/AP};
+\node[box,below=of b2] (a2) {PoE+接入交换机\\TD/TP/AP};
+\node[box,below=of b3] (a3) {PoE+接入交换机\\TD/TP/AP};
+\draw[arr] (net)--node[above]{双链路}(fw);
+\draw[arr] (fw)--node[above]{10 Gbit/s}(core);
+\draw[arr] (core)--node[sloped,above]{OS2}(b1);
+\draw[arr] (core)--node[right]{OS2}(b2);
+\draw[arr] (core)--node[sloped,above]{OS2}(b3);
+\draw[arr] (b1)--(a1);
+\draw[arr] (b2)--(a2);
+\draw[arr] (b3)--(a3);
+\end{tikzpicture}
+}
+\caption{校园信息网络系统拓扑}
+\end{figure}
+
+\section{设备配置}
+\begin{table}[H]
+\centering
+\caption{信息网络系统主要设备}
+\begin{tabular}{cllcc}
+\toprule
+序号&设备&主要规格&单位&数量\\
+\midrule
+1&核心交换机&三层交换，万兆光口，支持虚拟化&台&2\\
+2&出口路由器&双WAN，支持策略路由&台&1\\
+3&下一代防火墙&应用识别、IPS、VPN&台&1\\
+4&24口PoE+接入交换机&24千兆电口，万兆光上联&台&30\\
+5&无线控制器&支持不少于200个AP，冗余部署&台&2\\
+6&802.11ax无线AP&双频，PoE供电&台&172\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\chapter{综合布线系统设计}
+\section{系统总体方案}
+综合布线系统支持数据、语音和无线AP业务，采用星形拓扑和BD--FD--TO层级结构。建筑群主配线设备BD设置在行政综合楼网络机房，楼层配线设备FD设置在各层弱电间。数据主干采用12芯OS2单模光缆，语音主干采用3类25对大对数电缆，水平配线采用Cat6A U/UTP低烟无卤电缆。
+
+永久链路长度控制在90 m以内，信道长度不超过100 m。水平电缆沿金属弱电桥架敷设，出桥架后1--2根穿JDG20管，3--4根穿JDG25管暗敷。
+
+\section{工作区子系统}
+普通教室设置讲台数据点、信息发布或网络广播数据点和无线AP点；教师办公室按工位设置数据及语音点，每间办公室配置无线AP；会议室、计算机教室按使用密度增加数据点。墙面插座一般距地0.30 m暗装，AP吸顶安装。
+
+\begin{table}[H]
+\centering
+\caption{信息点配置原则}
+\begin{tabularx}{\textwidth}{lXXXl}
+\toprule
+区域&数据点&语音点&无线点&安装方式\\
+\midrule
+普通教室&讲台及信息发布点&按需求设置&每室1个AP&墙面暗装、吸顶\\
+教师办公室&每工位1个TD&每工位1个TP&每室1个AP&墙面或地插\\
+计算机教室&教师端及设备端增设TD&按需求设置&1--2个AP&地插、墙面\\
+会议室&不少于2个TD&不少于1个TP&每室1个AP&地插、墙面\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{longtable}{llrrrrr}
+\caption{各建筑信息点统计}\label{tab:points}\\
+\toprule
+建筑&楼层/区域&TP&TD&AP&数据合计&总计\\
+\midrule
+\endfirsthead
+\toprule
+建筑&楼层/区域&TP&TD&AP&数据合计&总计\\
+\midrule
+\endhead
+\multirow{15}{*}{1号教学楼}
+&1F北区&3&9&6&15&18\\
+&2F北区&2&10&5&15&17\\
+&3F北区&0&10&5&15&15\\
+&4F北区&0&10&5&15&15\\
+&5F北区&0&4&4&8&8\\
+&1F中区&1&13&6&19&20\\
+&2F中区&1&13&6&19&20\\
+&3F中区&0&14&6&20&20\\
+&4F中区&0&14&6&20&20\\
+&5F中区&0&0&6&6&6\\
+&1F南区&0&8&5&13&13\\
+&2F南区&0&8&5&13&13\\
+&3F南区&0&8&5&13&13\\
+&4F南区&0&8&5&13&13\\
+&5F南区&0&8&6&14&14\\
+\midrule
+\multirow{10}{*}{2号教学楼}
+&1F北区&2&12&7&19&21\\
+&2F北区&2&12&7&19&21\\
+&3F北区&2&12&7&19&21\\
+&4F北区&2&12&7&19&21\\
+&5F北区&1&5&2&7&8\\
+&1F南区&0&11&5&16&16\\
+&2F南区&0&11&5&16&16\\
+&3F南区&0&11&5&16&16\\
+&4F南区&11&0&5&5&16\\
+&5F南区&0&11&5&16&16\\
+\midrule
+\multirow{4}{*}{行政综合楼}
+&1F&5&10&7&17&22\\
+&2F&3&10&12&22&25\\
+&3F&1&14&7&21&22\\
+&4F&2&20&10&30&32\\
+\midrule
+\multicolumn{2}{r}{合计}&38&288&172&460&498\\
+\bottomrule
+\end{longtable}
+
+\section{配线子系统}
+水平线缆用量按式\eqref{eq:cable}计算：
+\begin{equation}
+C=\left(\frac{F+N}{2}+L\right)n(1+10\%)
+\label{eq:cable}
+\end{equation}
+式中，$C$为本层电缆总长度；$F$、$N$分别为配线间至最远和最近信息点距离；$L$为端接余量，取2 m；$n$为信息模块数量；10\%为施工和路径修正余量。
+
+\begin{longtable}{llrrrrr}
+\caption{水平配线电缆计算明细}\\
+\toprule
+建筑/区域&楼层&点数&最近距离/m&最远距离/m&长度/m&箱数\\
+\midrule
+\endfirsthead
+\toprule
+建筑/区域&楼层&点数&最近距离/m&最远距离/m&长度/m&箱数\\
+\midrule
+\endhead
+1号楼北区&1F&18&8.4&86.4&978.1&4\\
+&2F&17&10.9&90.2&982.7&4\\
+&3F&15&8.5&99.8&926.5&4\\
+&4F&15&11.5&105.6&999.1&4\\
+&5F&8&6.2&54.5&284.7&1\\
+1号楼中区&1F&20&8.6&86.3&1087.9&4\\
+&2F&20&9.9&90.2&1145.1&4\\
+&3F&20&8.5&99.8&1235.3&5\\
+&4F&20&11.2&92.6&1185.8&4\\
+&5F&6&8.2&75.6&289.7&1\\
+1号楼南区&1F&13&7.6&89.4&722.2&3\\
+&2F&13&9.9&90.2&744.3&3\\
+&3F&13&8.5&99.8&802.9&3\\
+&4F&13&11.2&92.6&770.8&3\\
+&5F&14&8.2&75.6&676.1&3\\
+2号楼北区&1F&21&11.2&55.4&815.4&3\\
+&2F&21&9.1&52.6&758.8&3\\
+&3F&21&8.6&58.2&817.7&3\\
+&4F&21&7.1&59.6&816.6&3\\
+&5F&8&9.2&58.6&315.9&2\\
+2号楼南区&1F&16&10.6&58.2&640.6&3\\
+&2F&16&8.6&59.6&635.4&3\\
+&3F&16&8.9&58.6&629.2&3\\
+&4F&16&7.5&59.6&625.7&3\\
+&5F&16&9.2&58.6&631.8&3\\
+行政综合楼&1F&22&11.2&55.4&854.3&3\\
+&2F&25&9.1&52.6&903.4&3\\
+&3F&22&8.6&58.2&856.7&3\\
+&4F&32&7.1&59.6&1244.3&5\\
+\midrule
+\multicolumn{5}{r}{合计}&23377.0&93\\
+\bottomrule
+\end{longtable}
+
+计算长度为23.377 km。箱数按每层、每配线区域分别以$\lceil C/305\rceil$向上取整，共配置93箱，总采购长度28.365 km。逐层取整能够保证每个施工区域均有完整线箱和必要余量，不能用总长度直接除以305代替。
+
+\section{干线子系统}
+每个FD采用1根12芯OS2单模光缆直连BD。每台接入交换机采用2芯工作、2芯备用，其余纤芯用于扩容。1号教学楼15个FD、2号教学楼10个FD、行政综合楼4个FD，共配置29根楼层光缆。
+
+语音主干按有语音业务的FD设置25对3类大对数电缆，并预留扩容，共配置20根。建筑间主干采用室外单模光缆，室内段采用低烟无卤阻燃护套。
+
+\begin{table}[H]
+\centering
+\caption{干线缆线配置}
+\begin{tabular}{lcccc}
+\toprule
+建筑&FD数量&12芯OS2/根&25对语音电缆/根&说明\\
+\midrule
+1号教学楼&15&15&4&北、中、南区分层设置\\
+2号教学楼&10&10&6&南、北区分层设置\\
+行政综合楼&4&4&4&每层设置1个FD\\
+备用&--&--&6&语音扩容备用\\
+\midrule
+合计&29&29&20&\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{管理子系统}
+FD内采用19英寸标准机柜。水平侧使用24口Cat6A模块式配线架，数据主干使用光纤配线架，语音主干使用100对110配线架。配线架、交换机和端口采用统一编号，编号包含建筑、楼层、区域、机柜和端口信息。
+
+数据业务的水平侧和设备侧均采用24口RJ45配线架，语音水平侧采用24口RJ45配线架、干线侧采用100对110配线架。按每个FD分别向上取整，24口RJ45配线架共74个；存在语音业务的FD共14个，每处配置1个100对110配线架。跳线按各FD实装端口的50\%分别向上取整，数据跳线239根，语音跳线23根。
+
+\section{设备间与电信间}
+BD位于行政综合楼网络机房，部署核心交换机、路由器、防火墙、光纤总配线架、语音总配线架和UPS。各FD设置于楼层弱电间，机柜容量按当前设备U数预留不少于30\%空间。光缆、数据铜缆和语音铜缆分区理线，强弱电分槽敷设，机柜及桥架进行等电位连接。
+
+\section{综合布线系统图及平面图}
+系统图和平面图在原建筑电气DWG底图上完成。图纸标明FD位置、TD数据点、TP语音点、无线AP、桥架和水平线路走向；系统图标明交换机、配线架、光缆和大对数电缆规格及数量。图纸文件见附录。
+
+\section{设备材料表}
+\small
+\begin{longtable}{p{0.6cm}p{3.3cm}p{3.3cm}p{0.6cm}p{0.7cm}p{3.2cm}}
+\caption{综合布线系统设备材料表}\\
+\toprule
+序号&名称&规格&单位&数量&备注\\
+\midrule
+\endfirsthead
+\toprule
+序号&名称&规格&单位&数量&备注\\
+\midrule
+\endhead
+1&Cat6A U/UTP电缆&低烟无卤，305 m/箱&箱&93&逐层向上取整\\
+2&3类25对大对数电缆&阻燃型&根&20&语音主干及备用\\
+3&12芯OS2单模光缆&低烟无卤&根&29&FD至BD\\
+4&24口PoE+接入交换机&千兆接入、万兆上联&台&30&含AP供电\\
+5&24口Cat6A配线架&19英寸机架式&个&74&水平侧及设备侧\\
+6&100对110配线架&19英寸机架式&个&14&语音端接\\
+7&光纤配线架&12/24口LC&个&30&FD及BD\\
+8&Cat6A数据模块&RJ45&个&460&含AP点\\
+9&语音模块&RJ45&个&38&TP点\\
+10&数据跳线&Cat6A，2 m&根&239&各FD按50\%向上取整\\
+11&语音跳线&RJ45--110，2 m&根&23&各FD按50\%向上取整\\
+12&单模光纤跳线&LC--LC双芯&对&60&交换机上联\\
+13&网络机柜&42U/22U&台&30&BD及FD\\
+14&线缆管理器&1U&个&100&配线设备配套\\
+\bottomrule
+\end{longtable}
+\normalsize
+
+\chapter{有线电视系统设计}
+\section{系统设计方案}
+系统采用862 MHz双向HFC结构，由信号源、前端、干线传输和用户分配网络组成。市有线电视光纤接入行政综合楼机房，经光接收机和双向放大器后，以SYWV-75-9同轴电缆送至各建筑和楼层分配点，再通过分配器、分支器和SYWV-75-5电缆接至用户终端。
+
+普通教室、会议室和主要活动房间设置电视终端。1号教学楼设置67个，2号教学楼设置55个，行政综合楼设置20个，共142个。
+
+\section{系统指标校核}
+最不利终端按前端输出106 dB$\mu$V计算。取75-9干线损耗4.8 dB、分配器损耗12 dB、分支损耗8 dB、75-5支线损耗7 dB、终端插座损耗1 dB，则
+\begin{equation}
+U_{\mathrm{out}}=106-4.8-12-8-7-1=73.2\ \mathrm{dB}\mu\mathrm{V}
+\end{equation}
+终端电平处于60--80 dB$\mu$V的设计控制范围。实际施工时应根据厂家器件插入损耗和现场电缆长度逐点复核。
+
+\section{系统图及平面图}
+电视终端与综合布线信息点协同布置，线路沿弱电桥架敷设，出桥架后穿JDG20管暗敷。系统图见《04\_信息网络\_综合布线\_有线电视\_公共广播系统图\_T3.dwg》，平面图专业图层保留在三栋建筑DWG中。
+
+\section{设备材料表}
+\begin{table}[H]
+\centering
+\caption{有线电视系统设备材料表}
+\begin{tabular}{cllcc}
+\toprule
+序号&名称&规格&单位&数量\\
+\midrule
+1&光接收机&862 MHz双向&台&3\\
+2&双向分配放大器&增益可调&台&3\\
+3&四分配器&5--1000 MHz&只&6\\
+4&八路分支器&5--1000 MHz&只&29\\
+5&电视终端插座&双向屏蔽型&个&142\\
+6&终端匹配电阻&75 $\Omega$&个&29\\
+7&同轴电缆&SYWV-75-9&m&650\\
+8&同轴电缆&SYWV-75-5&m&5500\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\chapter{公共广播系统设计}
+\section{系统设计方案}
+公共广播采用IP网络数字广播系统，广播控制中心设置在行政综合楼。系统由IP广播控制主机、话筒、音源、主交换机、IP网络功放和前端扬声器组成，可实现背景音乐、日常业务广播、分区寻呼和紧急广播联动。
+
+教室设置6 W壁挂音箱，走廊、电梯厅等公共区域设置3 W吸顶扬声器。楼层电信间设置IP网络功放，功放通过校园网络接收数字音频，通过100 V定压线路向扬声器供电。
+
+\section{扬声器与功放计算}
+1号教学楼配置20只壁挂音箱、168只吸顶扬声器；2号教学楼配置18只壁挂音箱、120只吸顶扬声器；行政综合楼配置60只吸顶扬声器。扬声器总功率为
+\begin{equation}
+P_L=38\times6+348\times3=1272\ \mathrm{W}
+\end{equation}
+功放容量不小于负荷的1.3倍：
+\begin{equation}
+P_A\geq1.3P_L=1653.6\ \mathrm{W}
+\end{equation}
+设计配置17台60 W和12台120 W IP网络功放，总容量2460 W，满足容量和分区要求。
+
+\section{系统图及平面图}
+广播系统图见独立四系统系统图DWG。平面图中广播设备和线路采用独立图层，教室壁挂音箱和公共区域吸顶扬声器沿弱电桥架及ZR-RVV $2\times1.5$线路连接。
+
+\section{设备材料表}
+\begin{table}[H]
+\centering
+\caption{公共广播系统设备材料表}
+\begin{tabular}{cllcc}
+\toprule
+序号&名称&规格&单位&数量\\
+\midrule
+1&IP网络广播控制主机&机架式&台&1\\
+2&广播话筒&桌面式&只&2\\
+3&数字音源&网络/CD/调谐&套&1\\
+4&主交换机&24口千兆&台&1\\
+5&IP网络功放&60 W&台&17\\
+6&IP网络功放&120 W&台&12\\
+7&壁挂音箱&6 W&只&38\\
+8&吸顶扬声器&3 W&只&348\\
+9&广播线缆&ZR-RVV $2\times1.5$&m&6200\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\chapter{总结}
+本设计完成了某中学三栋主要建筑的信息网络、综合布线、有线电视和公共广播系统方案、计算、设备选型与CAD图纸整理。系统采用双核心、万兆主干、千兆到桌面和PoE无线接入架构；综合布线按BD--FD--TO层级组织，统一核对了498个信息点、29个FD和23.377 km水平缆线用量；有线电视终端电平满足控制范围；公共广播功放容量满足不小于1.3倍扬声器负荷的要求。
+
+设计过程中对示例材料中信息点合计、语音点数量和电缆箱数不一致的问题进行了重新计算。后续施工深化应结合现场桥架路径、设备厂家参数、无线覆盖仿真和声场测试进一步校核，施工完成后应进行永久链路测试、光纤衰减测试、电视终端电平测试及广播声压级测试。
+
+\chapter*{参考文献}
+\addcontentsline{toc}{chapter}{参考文献}
+\begin{enumerate}[label={[\arabic*]}]
+  \item GB 50314--2015，智能建筑设计标准。
+  \item GB 50311--2016，综合布线系统工程设计规范。
+  \item GB/T 50312--2016，综合布线系统工程验收规范。
+  \item GB/T 50200--2018，有线电视网络工程设计标准。
+  \item GB/T 50526--2021，公共广播系统工程技术标准。
+  \item GB 50174--2017，数据中心设计规范。
+  \item GB 50343--2012，建筑物电子信息系统防雷技术规范。
+  \item 20X101-3，综合布线系统工程设计与施工。
+\end{enumerate}
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{附录：CAD图纸}
+\includepdf[
+  pages=-,
+  fitpaper=true,
+  pagecommand={\thispagestyle{empty}}
+]{附录_CAD图纸.pdf}
+
+\end{document}
